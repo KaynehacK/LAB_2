@@ -1,36 +1,44 @@
-import static java.lang.System.out;
+/*
+ * Задание №2.4. Сотрудники и отделы.
+ * Задание №3.4.
+ */
+
 import java.util.ArrayList;
 
 public class Department {
-    String Name;
-    Employee Superior;
-    ArrayList<Employee> Employees =  new ArrayList<>(0);
+    private String name;
+    private Employee superior;
+    private ArrayList<Employee> employees =  new ArrayList<>(0);
 
-    public String getName() { return Name; }
+    public String getName() {
+        return name;
+    }
+    public String setName(String newName) {
+        return name = newName;
+    }
 
-    public String getSuperior() { return Superior.getName(); }
+    public Employee getSuperior() {
+        return superior;
+    }
+    public void setSuperior(Employee employee) {
+        superior = employee;
+    }
 
-    public ArrayList<Employee> getEmployees() { return Employees; }
+    public ArrayList<Employee> getEmployees() {
+        return employees;
+    }
 
-    public String setName(String newName) { return Name = newName; }
 
     public void addEmployee(Employee e) {
-        Employees.add(e);
-        out.println("Employee " + e.getName() +" has been added to the department " + Name + ".");
+        employees.add(e);
     }
 
     public void removeEmployee(Employee e) {
-        Employees.remove(e);
-        out.println("Employee " + e.getName() +" has been removed from the department " + Name + ".");
+        employees.remove(e);
     }
 
-    public void setSuperior(Employee superior) {
-        Superior = superior;
-        out.println("Superior of " + Name + " has been changed to " + superior.getName() + ".");
-    }
 
     public Department(String newName) {
-        Name = newName; Superior = null;
-        out.println("Department created. Name: " + Name + ".");
+        name = newName; superior = null;
     }
 }

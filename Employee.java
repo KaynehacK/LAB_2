@@ -1,57 +1,77 @@
+/*
+ * Задание №2.4. Сотрудники и отделы.
+ * Создайте сущность Сотрудник, которая описывается именем (в строковой форме) и отделом, в
+ * котором сотрудник работает, причем у каждого отдела есть название и начальник, который
+ * также является Сотрудником. Сотрудник может быть приведен к текстовой форме вида: “Имя
+ * работает в отделе Название, начальник которого Имя”. В случае если сотрудник является
+ * руководителем отдела, то текстовая форма должна быть “Имя начальник отдела Название”.
+ * Необходимо выполнить следующие задачи:
+ * 1. Создать Сотрудников Петрова, Козлова, Сидорова работающих в отделе IT.
+ * 2. Сделать Козлова начальником IT отдела.
+ * 3. Вывести на экран текстовое представление всех трех Сотрудников (у всех троих должен
+ * оказаться один и тот же отдел и начальник).
+ *
+ * Задание №3.4. Сотрудники и отделы.
+ * Измените решение, полученное в задаче 2.4 таким образом, чтобы имея ссылку на сотрудника,
+ * можно было бы узнать список всех сотрудников этого отдела.
+ */
+
 import java.util.ArrayList;
 
-import static java.lang.System.out;
-
 public class Employee {
-    String Name;
-    Department Dep;
+    private String name;
+    private Department department;
 
     public String getName() {
-        return Name;
+        return name;
     }
-
-    public String getDep() {
-        return Dep.getName();
-    }
-
     public String setName(String newName) {
-        return Name = newName;
+        return name = newName;
     }
 
-    public void setDep(Department newDep) {
-        if (Dep != null) Dep.removeEmployee(this);
-        Dep = newDep;
-        Dep.addEmployee(this);
+    public Department getDepartment() {
+        return department;
+    }
+    public void setDepartment(Department newDepartment) {
+        if (department != null) department.removeEmployee(this);
+        department = newDepartment;
+        department.addEmployee(this);
     }
 
-    public Employee(String name, Department dep) {
-        Name = name;
-        Dep = dep;
-        Dep.addEmployee(this);
-        out.println("Employee created. Name: " + Name + ".");
+    public Employee(String name, Department department) {
+        this.name = name;
+        this.department = department;
+        this.department.addEmployee(this);
     }
-
-    public Employee(String name) { this(name, null); }
+    public Employee(String name) {
+        this(name, null);
+    }
 
     public void setSuperior() {
-        this.Dep.setSuperior(this);
-    }
-
-    public String getEmployee() {
-        if (Dep.Superior != this) { return Name + ", работает в отделе " + Dep.getName() + ", начальник которого - " + Dep.getSuperior() + "."; }
-        else { return Name + ", начальник отдела " + Dep.getName() + "."; }
+        this.department.setSuperior(this);
     }
 
     public ArrayList<Employee> getList() {
-        if (Dep != null) { return Dep.getEmployees(); }
+        if (department != null) { return department.getEmployees(); }
         else { return null; }
     }
 
-    public void printList()
-    {
-        out.printf("Отдел %s, cписок сотдудников:\n", this.Dep.getName());
-        for (Employee emp : getList()) {
-            out.printf("%s\n",emp.getName());
+    @Override
+    public String toString() {
+        if (department.getSuperior() != null && department.getSuperior() != this) {
+            return name
+                    + ", работает в отделе "
+                    + department.getName()
+                    + ", начальник которого - "
+                    + department.getSuperior()
+                    + ".";
+        } else if (department.getSuperior() != null) {
+            return name + ", начальник отдела " + department.getName() + ".";
+        } else {
+            return name
+                    + ", работает в отделе "
+                    + department.getName()
+                    + ", начальник которого не назначен";
         }
     }
 }

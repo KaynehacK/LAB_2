@@ -1,14 +1,28 @@
-import static java.lang.System.out;
+/*
+ * Задание №5.1. Пистолет стреляет.
+ *  Создайте сущность Пистолет, которая описывается следующим образом:
+ *  Имеет Количество патронов (целое число)
+ *  Может быть создан с указанием начального количества патронов
+ *  Может быть создан без указания начального количества патронов, в этом случае он
+ * изначально заряжен пятью патронами.
+ *  Может Стрелять, что приводит к выводу на экран текста “Бах!” в том случае, если
+ * количество патронов больше нуля, иначе делает “Клац!”. После каждого выстрела (когда
+ * вывелся “Бах!”) количество патронов уменьшается на один.
+ * Создайте пистолет с тремя патронами и выстрелите из него пять раз.
+ */
 
 public class Pistol {
-    int ammo;
+    private int ammo;
 
-    public int getAmmo() { return ammo; }
-    public void setAmmo(int ammo) { this.ammo = ammo; }
+    public int getAmmo() {
+        return ammo;
+    }
+    public void setAmmo(int ammo) {
+        this.ammo = ammo;
+    }
 
     public Pistol(int ammo) {
         this.ammo = ammo;
-        out.println("Сущность \"Пистолет\" создана. Количество патронов: " + String.valueOf(this.getAmmo()));
     }
 
     public Pistol() {
@@ -17,11 +31,15 @@ public class Pistol {
 
     public void shot() {
         if (ammo > 0) {
-            out.println("Бах!");
-            ammo--;
+            System.out.println("Бах!");
+            ammo -= 1;
         } else {
-
-            out.println("Клац!");
+            System.out.println("Клац!");
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Пистолет с " + ammo + " патронами в магазине";
     }
 }
